@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 
 const db = require('./config/database');
+const session = require('./config/session');
 const passport = require('./config/passport');
 
 const indexRouter = require('./routes/index');
@@ -12,7 +13,7 @@ const indexRouter = require('./routes/index');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Express session
+app.use(session);
 
 app.use(passport.initialize());
 app.use(passport.session());
