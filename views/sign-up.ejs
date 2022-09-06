@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Sign-Up</title>
+  </head>
+  <body>
+    <form
+      action="/sign-up"
+      method="post"
+      class="w-full max-w-lg mx-auto flex flex-col gap-4"
+    >
+      <div class="form-control">
+        <label class="label" for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="input input-sm input-bordered"
+          required
+          minlength="4"
+          maxlength="20"
+        />
+        <div class="text-error"><%= errorMessages.username || '' %></div>
+      </div>
+      <div class="form-control">
+        <label class="label" for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="input input-sm input-bordered"
+          required
+          minlength="8"
+        />
+        <div class="text-error"><%= errorMessages.password || '' %></div>
+      </div>
+      <div class="form-control">
+        <label class="label" for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          class="input input-sm input-bordered"
+          required
+          minlength="8"
+        />
+        <div class="text-error"><%= errorMessages.confirmPassword || '' %></div>
+      </div>
+      <button class="btn btn-primary self-end" type="submit">Sign Up</button>
+    </form>
+  </body>
+</html>

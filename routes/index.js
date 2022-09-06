@@ -1,16 +1,11 @@
 const router = require('express').Router();
+const mainController = require('../controllers/mainController');
 
-router.get('/', (req, res) => {
-  res.render('index');
-});
+router.get('/', mainController.index);
 
-router.get('/sign-up', (req, res) => {
-  res.send('sign-up');
-});
+router.get('/sign-up', mainController.sign_up_get);
 
-router.post('/sign-up', (req, res) => {
-  res.send('signed up');
-});
+router.post('/sign-up', mainController.sign_up_post);
 
 router.get('/log-in', (req, res) => {
   res.send('log-in');
