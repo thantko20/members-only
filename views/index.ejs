@@ -11,8 +11,8 @@
     <h1>Hello <%= currentUser ? currentUser.username : 'Not logged in' %></h1>
     <% messages.forEach(message => { %>
     <h2><%= message.title %></h2>
-    <p><%= message.text %></p>
-    <p><%= message.author.username %></p>
+    <p><%= message.description %></p>
+    <p><%= currentUser ? message.author.username : 'Unknown' %></p>
     <% }); %>
     <ul>
       <li><a href="/sign-up" class="link link-primary">Sign up</a></li>
@@ -21,9 +21,7 @@
         <a href="/become-a-member" class="link link-primary">Become a member</a>
       </li>
       <li>
-        <a href="/create-a-message" class="link link-primary"
-          >Create a message</a
-        >
+        <a href="/create-message" class="link link-primary">Create a message</a>
       </li>
       <li>
         <a href="/become-an-admin" class="link link-primary">Become an admin</a>

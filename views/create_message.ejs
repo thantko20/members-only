@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <% if (!currentUser) { %>
+    <h2>Sorry. Please login first to create a message</h2>
+    <% } else if (!currentUser.membership) { %>
+    <h2>Sorry. You have to be a member to create a message.</h2>
+    <% } else { %>
+    <form
+      action="/create-message"
+      method="post"
+      class="w-full max-w-lg mx-auto flex flex-col gap-4"
+    >
+      <div class="form-control">
+        <label class="label" for="title">Title</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          class="input input-sm input-bordered"
+          required
+          minlength="2"
+          maxlength="20"
+        />
+        <div class="text-error"><%= errorMessages.title || '' %></div>
+      </div>
+      <div class="form-control">
+        <label class="label" for="description">Description</label>
+        <textarea
+          name="description"
+          id="description"
+          class="textarea textarea-bordered"
+          required
+        ></textarea>
+        <div class="text-error"><%= errorMessages.description || '' %></div>
+      </div>
+      <button class="btn btn-primary self-end" type="submit">Create</button>
+    </form>
+    <% } %>
+  </body>
+</html>

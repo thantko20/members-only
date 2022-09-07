@@ -150,3 +150,59 @@ exports.become_a_member_post = [
     }
   },
 ];
+
+// GET Create a message
+exports.create_message_get = (req, res) => {
+  res.render('create_message', {
+    errorMessages: {},
+    title: 'Create a Message',
+  });
+};
+
+// POST Create a message
+exports.create_message_post = [
+  body('title', 'Title is required')
+    .trim()
+    .isLength({ min: 2, max: 20 })
+    .withMessage('Title should have minimum of 2 and maximum of 20 characters.')
+    .escape(),
+  body('description', 'Description is required')
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage('Description should have at least 4 characters.')
+    .escape(),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        const errorMessages = {};
+        errors.array().forEach((err) => {
+          errorMessages[err.param] = err.msg;
+        });
+
+        res.render('create_message', {
+          title: 'Create a Message',
+          errorMessages,
+        });
+        return;
+      }
+
+      if (!req.user && !req.user.membership) {
+        res.redirect('/create_message');
+        return;
+      }
+
+      const newMessage = new Message({
+        title: req.body.title,
+        description: req.body.description,
+        author: req.user._id,
+      });
+
+      await newMessage.save();
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
+  },
+];
