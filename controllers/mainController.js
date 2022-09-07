@@ -1,9 +1,19 @@
 const { body, validationResult } = require('express-validator');
+const passport = require('../config/passport');
 const { genPassword } = require('../lib/passwordUtils');
 const User = require('../models/user');
+const Message = require('../models/message');
 
-exports.index = (req, res) => {
-  res.render('index');
+// GET /
+// Get the messages
+exports.index = async (req, res, next) => {
+  try {
+    const messages = await Message.find().populate('author');
+
+    res.render('index', { messages });
+  } catch (err) {
+    next(err);
+  }
 };
 
 // GET /sign-up
@@ -71,9 +81,31 @@ exports.sign_up_post = [
 
       await newUser.save();
 
-      res.redirect('/');
+      res.redirect('/login');
     } catch (err) {
       next(err);
     }
   },
 ];
+
+// GET Login
+exports.login_get = (req, res) => {
+  res.render('login', {
+    title: 'Login',
+    errorMessages: {},
+  });
+};
+
+// POST Login
+exports.login_post = passport.authenticate('local', {
+  failureRedirect: '/login',
+  successRedirect: '/',
+});
+
+// POST Log out
+exports.log_out_post = (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect('/');
+  });
+};

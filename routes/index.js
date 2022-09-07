@@ -7,13 +7,9 @@ router.get('/sign-up', mainController.sign_up_get);
 
 router.post('/sign-up', mainController.sign_up_post);
 
-router.get('/log-in', (req, res) => {
-  res.send('log-in');
-});
+router.get('/login', mainController.login_get);
 
-router.post('/log-in', (req, res) => {
-  res.send('logged in!');
-});
+router.post('/login', mainController.login_post);
 
 router.get('/become-a-member', (req, res) => {
   res.send('become a member');
@@ -31,8 +27,6 @@ router.post('/become-an-admin', (req, res) => {
   res.send('You are now an admin!');
 });
 
-router.get('/log-out', (req, res) => {
-  res.send('Logged out!');
-});
+router.get('/log-out', mainController.log_out_post);
 
 module.exports = router;

@@ -2,6 +2,8 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 
+const setUser = require('./middlewares/setUser');
+
 const app = express();
 
 const db = require('./config/database');
@@ -20,6 +22,8 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(setUser);
 
 app.use(indexRouter);
 
