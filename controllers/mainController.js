@@ -109,3 +109,44 @@ exports.log_out_post = (req, res, next) => {
     res.redirect('/');
   });
 };
+
+// GET become a member
+exports.become_a_member_get = (req, res) => {
+  res.render('become_a_member', { errorMessages: {} });
+};
+
+// POST Become a member
+exports.become_a_member_post = [
+  body('memberCode', 'Member code is required!').custom((value, { req }) => {
+    if (!req.user) {
+      throw new Error('Please login first to become a member.');
+    }
+    if (value !== process.env.MEMBER_CODE) {
+      throw new Error('Wrong member code!');
+    }
+    return true;
+  }),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        const errorMessages = {};
+        errors.array().forEach((err) => (errorMessages[err.param] = err.msg));
+
+        res.render('become_a_member', {
+          errorMessages,
+        });
+        return;
+      }
+
+      const userId = req.user._id;
+
+      await User.findByIdAndUpdate(userId, { membership: true });
+
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
+  },
+];
