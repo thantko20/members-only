@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Become an Admin</title>
+  </head>
+  <body>
+    <form
+      action="/become-admin"
+      method="post"
+      class="w-full max-w-lg mx-auto flex flex-col gap-4"
+    >
+      <div class="form-control">
+        <label class="label" for="adminCode">Enter the code: (ADMIN1234)</label>
+        <input
+          type="text"
+          name="adminCode"
+          id="adminCode"
+          class="input input-sm input-bordered"
+          required
+        />
+        <div class="text-error"><%= errorMessages.adminCode || '' %></div>
+      </div>
+      <button class="btn btn-primary self-end" type="submit">Submit</button>
+  </body>
+</html>

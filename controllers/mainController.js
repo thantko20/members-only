@@ -206,3 +206,44 @@ exports.create_message_post = [
     }
   },
 ];
+
+// GET Become an admin
+exports.become_admin_get = (req, res) => {
+  res.render('become_admin', { errorMessages: {} });
+};
+
+// POST Become an admin
+exports.become_admin_post = [
+  body('adminCode', 'Admin code is required!').custom((value, { req }) => {
+    if (!req.user) {
+      throw new Error('Please login first to become an admin.');
+    }
+    if (value !== process.env.ADMIN_CODE) {
+      throw new Error('Wrong admin code!');
+    }
+    return true;
+  }),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        const errorMessages = {};
+        errors.array().forEach((err) => (errorMessages[err.param] = err.msg));
+
+        res.render('become_admin', {
+          errorMessages,
+        });
+        return;
+      }
+
+      const userId = req.user._id;
+
+      await User.findByIdAndUpdate(userId, { admin: true });
+
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
+  },
+];
