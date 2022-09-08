@@ -8,22 +8,34 @@
     <title>Become a member</title>
   </head>
   <body>
-    <form
-      action="/become-a-member"
-      method="post"
-      class="w-full max-w-lg mx-auto flex flex-col gap-4"
-    >
-      <div class="form-control">
-        <label class="label" for="memberCode">Enter the code: (123456)</label>
-        <input
-          type="text"
-          name="memberCode"
-          id="memberCode"
-          class="input input-sm input-bordered"
-          required
-        />
-        <div class="text-error"><%= errorMessages.memberCode || '' %></div>
-      </div>
-      <button class="btn btn-primary self-end" type="submit">Join</button>
+    <%- include('header'); %>
+    <div class="container mx-auto">
+      <% if (!currentUser) {%>
+      <p class="text-center text-lg font-semibold">
+        Please Login to become a member.
+      </p>
+      <% } else if (currentUser.membership) { %>
+      <p class="text-center text-lg font-semibold">You are already a member!</p>
+      <% } else { %>
+      <form
+        action="/become-member"
+        method="post"
+        class="w-full max-w-lg mx-auto flex flex-col gap-4"
+      >
+        <div class="form-control">
+          <label class="label" for="memberCode">Enter the code: (123456)</label>
+          <input
+            type="text"
+            name="memberCode"
+            id="memberCode"
+            class="input input-sm input-bordered"
+            required
+          />
+          <div class="text-error"><%= errorMessages.memberCode || '' %></div>
+        </div>
+        <button class="btn btn-primary self-end" type="submit">Join</button>
+      </form>
+      <% } %>
+    </div>
   </body>
 </html>

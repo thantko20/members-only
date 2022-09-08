@@ -8,13 +8,18 @@
     <title>Become an Admin</title>
   </head>
   <body>
+    <%- include('header'); %> <% if (!currentUser) { %>
+    <p class="text-center font-semibold">Please login first</p>
+    <% } else if (currentUser.admin) { %>
+    <p class="text-center font-semibold">You are already an admin!</p>
+    <% } else { %>
     <form
       action="/become-admin"
       method="post"
       class="w-full max-w-lg mx-auto flex flex-col gap-4"
     >
       <div class="form-control">
-        <label class="label" for="adminCode">Enter the code: (ADMIN1234)</label>
+        <label class="label" for="adminCode">Enter the code:</label>
         <input
           type="text"
           name="adminCode"
@@ -25,5 +30,7 @@
         <div class="text-error"><%= errorMessages.adminCode || '' %></div>
       </div>
       <button class="btn btn-primary self-end" type="submit">Submit</button>
+    </form>
+    <% } %>
   </body>
 </html>

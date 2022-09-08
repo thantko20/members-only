@@ -8,7 +8,7 @@
     <title><%= title %></title>
   </head>
   <body>
-    <% if (!currentUser) { %>
+    <%- include('header'); %> <% if (!currentUser) { %>
     <h2>Sorry. Please login first to create a message</h2>
     <% } else if (!currentUser.membership) { %>
     <h2>Sorry. You have to be a member to create a message.</h2>
@@ -27,7 +27,7 @@
           class="input input-sm input-bordered"
           required
           minlength="2"
-          maxlength="20"
+          maxlength="50"
         />
         <div class="text-error"><%= errorMessages.title || '' %></div>
       </div>

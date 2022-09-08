@@ -8,25 +8,24 @@
     <title>Ho</title>
   </head>
   <body>
-    <h1>Hello <%= currentUser ? currentUser.username : 'Not logged in' %></h1>
-    <% messages.forEach(message => { %>
-    <h2><%= message.title %></h2>
-    <p><%= message.description %></p>
-    <p><%= currentUser ? message.author.username : 'Unknown' %></p>
-    <% }); %>
-    <ul>
-      <li><a href="/sign-up" class="link link-primary">Sign up</a></li>
-      <li><a href="/login" class="link link-primary">Login</a></li>
-      <li>
-        <a href="/become-member" class="link link-primary">Become a member</a>
-      </li>
-      <li>
-        <a href="/create-message" class="link link-primary">Create a message</a>
-      </li>
-      <li>
-        <a href="/become-admin" class="link link-primary">Become an admin</a>
-      </li>
-    </ul>
-    <a href="/log-out" class="btn btn-primary">Log out</a>
+    <%- include('header'); %>
+    <div class="container mx-auto max-w-xl flex flex-col gap-4 pt-4">
+      <% messages.forEach(message => { %>
+      <div class="bg-zinc-800 p-4 rounded">
+        <h2 class="text-2xl font-medium"><%= message.title %></h2>
+        <p class="mt-4 text-zinc-200"><%= message.description %></p>
+        <p class="mt-6">
+          By
+          <span class="italic text-purple-400 font-medium"
+            ><%= currentUser ? message.author.username : 'Unknown' %></span
+          >
+        </p>
+        <p class="mt-2">
+          Posted on
+          <span class="italic"><%= message.formattedDate %></span>
+        </p>
+      </div>
+      <% }); %>
+    </div>
   </body>
 </html>

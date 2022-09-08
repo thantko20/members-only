@@ -1,0 +1,42 @@
+<header>
+  <div class="navbar container mx-auto bg-base-100">
+    <a href="/" class="btn btn-ghost normal-case text-xl">Members</a>
+    <nav class="navbar-start ml-10">
+      <ul class="flex gap-6 items-center">
+        <li>
+          <a href="/become-member" class="link-hover hover:text-purple-500"
+            >Become a member</a
+          >
+        </li>
+        <li>
+          <a href="/create-message" class="link-hover hover:text-purple-500"
+            >Create a message</a
+          >
+        </li>
+        <li>
+          <a href="/become-admin" class="link-hover hover:text-purple-500"
+            >Become an admin</a
+          >
+        </li>
+        <% if (!currentUser) { %>
+        <li>
+          <a href="/sign-up" class="btn btn-primary btn-sm normal-case text-sm"
+            >Sign up</a
+          >
+        </li>
+        <li>
+          <a href="/login" class="btn btn-secondary btn-sm normal-case text-sm"
+            >Login</a
+          >
+        </li>
+        <% } %>
+      </ul>
+    </nav>
+    <% if (currentUser) { %>
+    <div class="navbar-end gap-4">
+      <p class="font-medium"><%= currentUser.username %></p>
+      <a href="/log-out" class="btn btn-ghost btn-sm text-error">Logout</a>
+    </div>
+    <% } %>
+  </div>
+</header>
