@@ -8,7 +8,7 @@ const Message = require('../models/message');
 // Get the messages
 exports.index = async (req, res, next) => {
   try {
-    const messages = await Message.find().populate('author');
+    const messages = await Message.find().populate('author').sort({ date: -1 });
 
     res.render('index', { messages });
   } catch (err) {
@@ -163,8 +163,8 @@ exports.create_message_get = (req, res) => {
 exports.create_message_post = [
   body('title', 'Title is required')
     .trim()
-    .isLength({ min: 2, max: 20 })
-    .withMessage('Title should have minimum of 2 and maximum of 20 characters.')
+    .isLength({ min: 2, max: 50 })
+    .withMessage('Title should have minimum of 2 and maximum of 50 characters.')
     .escape(),
   body('description', 'Description is required')
     .trim()
