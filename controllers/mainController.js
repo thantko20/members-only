@@ -10,7 +10,7 @@ exports.index = async (req, res, next) => {
   try {
     const messages = await Message.find().populate('author').sort({ date: -1 });
 
-    res.render('index', { messages });
+    res.render('index', { messages, title: 'Messages' });
   } catch (err) {
     next(err);
   }
@@ -112,7 +112,10 @@ exports.log_out_post = (req, res, next) => {
 
 // GET become a member
 exports.become_a_member_get = (req, res) => {
-  res.render('become_a_member', { errorMessages: {} });
+  res.render('become_a_member', {
+    errorMessages: {},
+    title: 'Become a member',
+  });
 };
 
 // POST Become a member
@@ -209,7 +212,7 @@ exports.create_message_post = [
 
 // GET Become an admin
 exports.become_admin_get = (req, res) => {
-  res.render('become_admin', { errorMessages: {} });
+  res.render('become_admin', { errorMessages: {}, title: 'Become an admin' });
 };
 
 // POST Become an admin

@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/styles.css" />
-    <title>Sign-Up</title>
+    <title><%= title %></title>
   </head>
   <body>
     <%- include('header'); %>
+    <h2 class="text-center text-4xl font-semibold mb-6"><%= title %></h2>
     <form
       action="/sign-up"
       method="post"

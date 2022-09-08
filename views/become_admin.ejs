@@ -5,10 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/styles.css" />
-    <title>Become an Admin</title>
+    <title><%= title %></title>
   </head>
   <body>
-    <%- include('header'); %> <% if (!currentUser) { %>
+    <%- include('header'); %>
+    <h2 class="text-center text-4xl font-semibold mb-6"><%= title %></h2>
+    <% if (!currentUser) { %>
     <p class="text-center font-semibold">Please login first</p>
     <% } else if (currentUser.admin) { %>
     <p class="text-center font-semibold">You are already an admin!</p>
