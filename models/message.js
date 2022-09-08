@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-const { formatRelative } = require('date-fns');
+const { format } = require('date-fns');
 
 const MessageSchema = new Schema({
   title: { type: String, required: true, minLength: 2, maxLength: 50 },
@@ -12,7 +12,7 @@ const MessageSchema = new Schema({
 });
 
 MessageSchema.virtual('formattedDate').get(function () {
-  const formattedDate = formatRelative(this.date, Date.now());
+  const formattedDate = format(this.date, 'do MMMM yyyy');
 
   return formattedDate;
 });
