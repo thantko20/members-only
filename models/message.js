@@ -12,7 +12,7 @@ const MessageSchema = new Schema({
 });
 
 MessageSchema.virtual('formattedDate').get(function () {
-  const formattedDate = formatRelative(this.date, new Date());
+  const formattedDate = formatRelative(this.date, Date.now());
 
   return formattedDate;
 });
