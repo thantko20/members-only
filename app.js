@@ -6,6 +6,8 @@ const setUser = require('./middlewares/setUser');
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 const db = require('./config/database');
 const session = require('./config/session');
 const passport = require('./config/passport');
@@ -27,4 +29,4 @@ app.use(setUser);
 
 app.use(indexRouter);
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
